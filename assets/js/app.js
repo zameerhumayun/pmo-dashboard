@@ -99,21 +99,21 @@ const App = {
   renderDbStatus() {
     const s = DB.status;
     let cls = "ok", txt = "✓ Saved to " + DB.fileName;
-    if (DB.mode === "hosted") { cls = s.dirty ? "bad" : "ok"; txt = s.dirty ? "⚠ Export to update database.json" : "✓ database.json"; }
-    else if (DB.mode === "memory") { cls = s.dirty ? "bad" : "warn"; txt = s.dirty ? "⚠ Not saved - export needed" : "⚠ Read-only copy"; }
-    else if (s.state === "saving") { cls = "busy"; txt = "Saving…"; }
+    if (s.state === "saving") { cls = "busy"; txt = "Saving…"; }
     else if (s.state === "error") { cls = "bad"; txt = "⚠ Save failed"; }
+    else if (DB.mode === "memory") { cls = s.dirty ? "bad" : "warn"; txt = s.dirty ? "⚠ Not saved - export needed" : "⚠ Read-only copy"; }
+    else if (DB.mode === "hosted") { txt = "✓ database.json"; }
     $("#dbStatus").attr("class", "dbpill " + cls).text(txt);
     let b = "";
-    if (DB.mode === "hosted" && s.dirty) b = `<div class="note warn noprint">⚠ <b>This website cannot write database.json.</b> Click <b>Export JSON</b> and replace the file in the project folder, or open the folder in Chrome or Edge and use <b>Connect Database</b> to save directly.</div>`;
-    else if (DB.mode === "memory") b = `<div class="note warn noprint">⚠ <b>Changes are not being saved to a file.</b> Click <b>Export JSON</b> and replace database.json in the PMAI folder to keep your changes.</div>`;
-    else if (s.state === "error") b = `<div class="note bad noprint">⚠ <b>The last change was NOT saved:</b> ${esc(s.error)} <button class="btn sm" onclick="DB.saveNow()">Try again</button> <button class="btn sm sec" onclick="DB.exportJSON()">Export a backup</button></div>`;
+    if (DB.mode === "memory") b = `<div class="note warn noprint">⚠ <b>Changes are not being saved to a file.</b> Click <b>Export JSON</b> and replace database.json in the PMAI folder to keep your changes.</div>`;
+    else if (s.state === "error") b = `<div class="note bad noprint">⚠ <b>The last change was NOT saved to database.json:</b> ${esc(s.error)} <button class="btn sm" onclick="DB.saveNow()">Try again</button> <button class="btn sm sec" onclick="DB.exportJSON()">Export a backup</button></div>`;
     $("#banner").html(b);
   },
 
   /* ---------- Modal dialog ---------- */
   /** App.modal({ title, body, buttons: [{ label, cls, onClick }], onOpen }). Return false from onClick to keep it open. */
   modal(o) {
+    this._modalOnClose = o.onClose || null;
     $("#modalTitle").text(o.title || "");
     $("#modalBody").html(o.body || "");
     const btns = o.buttons || [{ label: "Close" }];
@@ -125,7 +125,12 @@ const App = {
     $("#modal").addClass("open");
     if (o.onOpen) o.onOpen();
   },
-  closeModal() { $("#modal").removeClass("open"); },
+  closeModal() {
+    $("#modal").removeClass("open");
+    const done = this._modalOnClose;
+    this._modalOnClose = null;
+    if (done) done();
+  },
 
   start() { $("#welcome").hide(); $("#app").show(); this.go("dashboard"); },
   welcomeMsg(html, cls) { $("#welcomeMsg").html(html ? `<div class="note ${cls || ""}">${html}</div>` : ""); }

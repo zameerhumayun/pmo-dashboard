@@ -142,7 +142,7 @@ const Projects = {
     this.checkCompletion(p, async () => {
       if (!confirm(`All completion checks passed.\nMark "${p.name}" as Completed?`)) return;
       Object.assign(p, { status: "Completed", phase: "Closing", completedAt: U.now(), updatedAt: U.now() });
-      await DB.save(`Project ${p.id} completed`);
+      if (!(await DB.save(`Project ${p.id} completed`))) return;
       toast("Project marked as Completed"); App.render();
     });
   },
@@ -157,7 +157,7 @@ const Projects = {
     DB.data.issues = DB.data.issues.filter(x => x.projectId !== id);
     DB.data.comments = DB.data.comments.filter(x => x.projectId !== id);
     if (App.currentId === id) App.currentId = null;
-    await DB.save(`Project ${id} deleted`);
+    if (!(await DB.save(`Project ${id} deleted`))) return;
     toast("Project deleted");
     App.go(App.view === "dashboard" ? "dashboard" : "projects");
   },
@@ -295,7 +295,7 @@ App.views.add = function ($v, params) {
       if (finalStatus === "Completed") { if (!target.completedAt) target.completedAt = U.now(); target.phase = "Closing"; }
       else target.completedAt = null;
       if (!edit) DB.data.projects.push(target);
-      await DB.save(`Project ${target.id} ${edit ? "updated" : "created"}${finalStatus === "Completed" ? " (Completed)" : ""}`);
+      if (!(await DB.save(`Project ${target.id} ${edit ? "updated" : "created"}${finalStatus === "Completed" ? " (Completed)" : ""}`))) return;
       toast(edit ? "Project saved" : "Project created");
       App.go("details", { id: target.id });
     };

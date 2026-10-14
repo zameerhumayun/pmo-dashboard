@@ -114,12 +114,11 @@ Use Connect only when the page was opened from the computer, or when you want ed
 
 Next time you open the dashboard it reconnects automatically. If the browser asks again, click **🔄 Reconnect database.json**.
 
-On a published site the folder copy is read-only. After editing, use **Export JSON** and replace `database.json` in the project.
+On the published site, the first save asks for a GitHub personal access token (Contents: Read and write, this repository only). The token stays in that browser. After that, every change is written to `database.json` in the repository. Pull the repository to refresh the copy in the PMAI folder on your computer.
 
 **Saving:**
-- When the file is connected in Chrome or Edge, every add, edit, resolve and delete is saved to `database.json` immediately. The green pill in the header shows **✓ Saved to database.json**.
-- On a published site the pill shows **✓ database.json**. Edits stay in the browser until you **Export JSON** and replace the file.
-- **💾 Save Changes** writes the connected file again (or downloads it on a published site).
+- Every add, edit, resolve and delete is saved to `database.json`. The header pill shows **✓ Saved to database.json**.
+- **💾 Save Changes** writes the file again (useful if a save failed).
 - **Export JSON** downloads a copy (backup). **Import JSON** replaces all data with another file (asks first).
 - Click the green pill for **Database options**: reload from file, alert thresholds, reset demo data.
 

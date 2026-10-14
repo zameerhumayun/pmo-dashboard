@@ -110,14 +110,14 @@ const Risks = {
   async resolve(kind, id) {
     const x = this.find(kind, id);
     x.status = "Resolved"; x.resolvedAt = x.updatedAt = U.now();
-    await DB.save(`${kind === "risks" ? "Risk" : "Issue"} ${id} resolved`);
+    if (!(await DB.save(`${kind === "risks" ? "Risk" : "Issue"} ${id} resolved`))) return;
     toast(`${id} resolved`); App.render();
   },
 
   async del(kind, id) {
     if (!confirm(`Delete ${kind === "risks" ? "risk" : "issue"} ${id}? This cannot be undone.`)) return;
     DB.data[kind] = DB.data[kind].filter(x => x.id !== id);
-    await DB.save(`${kind === "risks" ? "Risk" : "Issue"} ${id} deleted`);
+    if (!(await DB.save(`${kind === "risks" ? "Risk" : "Issue"} ${id} deleted`))) return;
     toast("Deleted"); App.render();
   }
 };

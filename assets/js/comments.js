@@ -45,7 +45,7 @@ const Comments = {
     const type = $f.find("[name=type]").val();
     DB.data.comments.push({ id: U.nextId(DB.data.comments, "C-"), projectId: pid, author, type, text, at: U.now() });
     DB.data.settings.lastAuthor = author;                 // remembered so the next entry is faster
-    await DB.save(`${type} added to ${pid}`);
+    if (!(await DB.save(`${type} added to ${pid}`))) return;
     toast(type + " added"); App.render();
   },
 
@@ -72,7 +72,7 @@ const Comments = {
   async remove(id) {
     if (!confirm(`Delete entry ${id}? This cannot be undone.`)) return;
     DB.data.comments = DB.data.comments.filter(x => x.id !== id);
-    await DB.save(`Entry ${id} deleted`);
+    if (!(await DB.save(`Entry ${id} deleted`))) return;
     toast("Entry deleted"); App.render();
   }
 };
