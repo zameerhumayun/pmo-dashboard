@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PMO Project Management Dashboard</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+
+<!-- ===== Start screen: connect database.json ===== -->
+<section id="welcome">
+  <h1>PMO Project Management Dashboard</h1>
+  <p>Project Monitoring, Performance &amp; Risk Management</p>
+  <div id="connectBox">
+    <button class="btn big" id="btnReconnect" style="display:none"></button>
+    <button class="btn big" id="btnConnect">📂 Connect Database (database.json)</button>
+    <div class="welcome-links">
+      <a href="#" id="btnImport">Browser not supported? Open a JSON file (changes must be exported)</a>
+    </div>
+    <input type="file" id="importFile" accept=".json,application/json" hidden>
+  </div>
+  <div id="welcomeMsg"></div>
+  <div class="welcome-note">
+    All project data is stored in the <b>database.json</b> file in the PMAI folder.<br>
+    Click <b>Connect Database</b>, select that file and allow the browser to edit it (Chrome or Edge on a computer).
+  </div>
+</section>
+
+<!-- ===== Main application ===== -->
+<div id="app">
+  <aside id="side">
+    <h2>📊 PMO Portal</h2>
+    <nav id="nav">
+      <a data-v="dashboard">🏠 Dashboard</a>
+      <a data-v="projects">📁 Projects</a>
+      <a data-v="add">➕ Add Project</a>
+      <a data-v="risks">⚠️ Risks &amp; Issues</a>
+      <a data-v="performance">📈 Performance</a>
+      <a data-v="report">📄 Reports</a>
+    </nav>
+  </aside>
+  <div id="sideShade"></div>
+  <header>
+    <div class="hl"><button class="btn sec" id="menuBtn">☰</button> <b>PMO Project Management Dashboard</b></div>
+    <div class="hr">
+      <button id="dbStatus" class="dbpill" title="Database options"></button>
+      <button class="btn sm" id="btnSave" title="Write all data to database.json now">💾 Save Changes</button>
+      <button class="btn sm sec" id="btnImportJson" title="Replace all data with another JSON file">Import JSON</button>
+      <button class="btn sm sec" id="btnExport" title="Download a copy of database.json">Export JSON</button>
+      <input type="file" id="hdrImport" accept=".json,application/json" hidden>
+    </div>
+  </header>
+  <div id="banner"></div>
+  <main id="view"></main>
+</div>
+
+<!-- ===== Modal dialog ===== -->
+<div id="modal" class="modal-wrap">
+  <div class="modal">
+    <div class="modal-h"><h3 id="modalTitle"></h3><button class="x" data-close>&times;</button></div>
+    <div class="modal-b" id="modalBody"></div>
+    <div class="modal-f" id="modalFoot"></div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<!-- Libraries (stored locally so the dashboard works offline) -->
+<script src="assets/js/vendor/jquery-3.7.1.min.js"></script>
+<script src="assets/js/vendor/chart.umd.min.js"></script>
+<!-- Application files -->
+<script src="assets/js/app.js"></script>
+<script src="assets/js/sample-data.js"></script>
+<script src="assets/js/database.js"></script>
+<script src="assets/js/projects.js"></script>
+<script src="assets/js/risks.js"></script>
+<script src="assets/js/comments.js"></script>
+<script src="assets/js/alerts.js"></script>
+<script src="assets/js/charts.js"></script>
+<script src="assets/js/dashboard.js"></script>
+<script src="assets/js/reports.js"></script>
+</body>
+</html>

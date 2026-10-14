@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PMO Project Management Portal</title>
+<style>
+:root{--navy:#0f2547;--blue:#2453a6;--bg:#f2f4f8;--card:#fff;--text:#1d2939;--muted:#667085;--line:#e4e7ec;--g:#12a150;--y:#e89b0c;--r:#d92d20}
+*{box-sizing:border-box}body{margin:0;font-family:Segoe UI,Arial,sans-serif;background:var(--bg);color:var(--text)}
+#welcome{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;background:linear-gradient(135deg,#0f2547,#2453a6);color:#fff;text-align:center;padding:20px}
+#welcome h1{font-size:2.4rem;margin:0 0 8px}#welcome p{opacity:.85;margin:0 0 28px;font-size:1.1rem}
+#app{display:none;min-height:100vh}
+aside{position:fixed;left:0;top:0;bottom:0;width:230px;background:var(--navy);color:#cfd8ea;padding:20px 12px;z-index:20;transition:.25s}
+aside h2{color:#fff;font-size:1.05rem;margin:0 8px 24px}
+aside a{display:block;padding:11px 14px;border-radius:8px;cursor:pointer;margin-bottom:4px}
+aside a:hover{background:#1c3966}aside a.active{background:var(--blue);color:#fff}
+header{margin-left:230px;background:#fff;border-bottom:1px solid var(--line);padding:12px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:10}
+header b{font-size:1.05rem}#menuBtn{display:none}
+.user{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.9rem}
+.avatar{width:34px;height:34px;border-radius:50%;background:var(--blue);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700}
+main{margin-left:230px;padding:24px}
+h1.t{margin:0}p.sub{color:var(--muted);margin:2px 0 20px}
+.grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));margin-bottom:20px}
+.grid2{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));margin-bottom:20px}
+.card{background:var(--card);border-radius:12px;padding:18px;box-shadow:0 1px 3px rgba(16,24,40,.1)}
+.kpi small{color:var(--muted);display:block;margin-bottom:6px}.kpi b{font-size:1.5rem}
+.card h3{margin:0 0 14px;font-size:1.05rem}
+table{width:100%;border-collapse:collapse;font-size:.9rem}th{text-align:left;color:var(--muted);font-weight:600;padding:10px 8px;border-bottom:2px solid var(--line);white-space:nowrap}
+td{padding:10px 8px;border-bottom:1px solid var(--line)}.tw{overflow-x:auto}
+.badge{padding:3px 10px;border-radius:20px;font-size:.78rem;font-weight:600;white-space:nowrap}
+.green{background:#dcfae6;color:#067647}.yellow{background:#fef0c7;color:#b54708}.red{background:#fee4e2;color:#b42318}.gray{background:#eef0f4;color:#475467}
+.btn{border:0;border-radius:8px;padding:8px 14px;cursor:pointer;font-size:.88rem;background:var(--blue);color:#fff;font-weight:600}
+.btn.sec{background:#e9edf5;color:var(--navy)}.btn.del{background:var(--r)}.btn.sm{padding:5px 10px;font-size:.8rem;margin-right:3px}
+.btn.big{background:#fff;color:var(--navy);padding:14px 30px;font-size:1.05rem}
+.bar{height:14px;background:#e9edf5;border-radius:8px;overflow:hidden}.bar i{display:block;height:100%;border-radius:8px}
+.row{margin-bottom:14px}.row div.l{display:flex;justify-content:space-between;font-size:.88rem;margin-bottom:4px}
+.form{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+label{font-size:.82rem;font-weight:600;display:block;margin-bottom:4px}
+input,select,textarea{width:100%;padding:9px;border:1px solid #cfd4dc;border-radius:8px;font:inherit}
+input.bad,select.bad{border-color:var(--r);background:#fff5f4}
+.err{color:var(--r);font-size:.76rem;min-height:14px}
+.sec-t{grid-column:1/-1;font-weight:700;color:var(--blue);border-bottom:1px solid var(--line);padding-bottom:4px;margin-top:8px}
+.full{grid-column:1/-1}
+.toolbar{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:14px}.toolbar input{max-width:280px}.toolbar select{max-width:180px}
+#toast{position:fixed;top:20px;right:20px;background:var(--g);color:#fff;padding:12px 20px;border-radius:8px;display:none;z-index:99;box-shadow:0 4px 12px rgba(0,0,0,.2)}
+.calcnote{background:#eef4ff;border-left:4px solid var(--blue);padding:10px 14px;border-radius:6px;font-size:.85rem;margin-bottom:16px}
+.report h2{color:var(--navy);border-bottom:2px solid var(--navy);padding-bottom:6px}.report td:first-child{font-weight:600;width:40%}
+.foot{text-align:center;color:var(--muted);margin-top:24px;font-size:.85rem}
+.ring{width:120px;height:120px;border-radius:50%;display:flex;align-items:center;justify-content:center;margin:auto}
+.ring span{background:#fff;width:88px;height:88px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:1.2rem}
+@media(max-width:860px){aside{transform:translateX(-100%)}aside.open{transform:none}header,main{margin-left:0}#menuBtn{display:inline-block}}
+@media print{aside,header,.noprint,#toast{display:none!important}main,header{margin:0!important}body{background:#fff}.card{box-shadow:none}}
+</style>
+</head>
+<body>
+<section id="welcome">
+  <h1>PMO Project Management Portal</h1>
+  <p>Project Monitoring, Performance &amp; Risk Management</p>
+  <button class="btn big" onclick="enterApp()">Enter PMO Dashboard</button>
+</section>
+
+<div id="app">
+  <aside id="side">
+    <h2>📊 PMO Portal</h2>
+    <a data-v="dashboard">Dashboard</a><a data-v="projects">Projects</a><a data-v="add">Add Project</a>
+    <a data-v="risks">Risks</a><a data-v="performance">Performance</a><a data-v="report">Reports</a>
+  </aside>
+  <header>
+    <div><button class="btn sec" id="menuBtn" onclick="side.classList.toggle('open')">☰</button> <b>PMO Project Management Portal</b></div>
+    <div class="user"><div class="avatar">PM</div>Project Manager</div>
+  </header>
+  <main id="view"></main>
+</div>
+<div id="toast"></div>
+
+<script>
+/* ================= DATA & STORAGE ================= */
+const SAMPLE = [
+ {id:"PMO-001",name:"Solar Powered Parking Shade Construction Project",manager:"Project Manager",dept:"Administration",sponsor:"University Rector",start:"2026-01-05",end:"2026-08-30",budget:40000000,planned:40000000,actual:18000000,pp:60,ap:52,pd:180,ad:165,high:1,med:2,low:2,status:"In Progress",desc:"Installation of solar-powered parking shades to provide covered parking and support renewable energy usage on campus."},
+ {id:"PMO-002",name:"Campus Network Upgrade Project",manager:"IT Project Manager",dept:"Information Technology",sponsor:"Director IT",start:"2026-02-01",end:"2026-07-15",budget:30000000,planned:30000000,actual:20000000,pp:70,ap:72,pd:120,ad:115,high:0,med:2,low:2,status:"In Progress",desc:"Upgrade of campus network infrastructure, switches, access points and network monitoring systems."},
+ {id:"PMO-003",name:"Digital Student Portal Implementation",manager:"Project Manager",dept:"Student Affairs",sponsor:"University Administration",start:"2026-01-15",end:"2026-09-30",budget:30000000,planned:32000000,actual:31000000,pp:75,ap:55,pd:150,ad:175,high:3,med:2,low:1,status:"At Risk",desc:"Implementation of a centralized digital portal for student academic and administrative services."}
+];
+const RISK_TEXT=["Supplier delivery delays","Scope creep from stakeholders","Key resource unavailability","Budget overrun on materials","Technical integration issues","Regulatory / approval delay"];
+const CATS=["Schedule","Cost","Technical","Resource","Scope","External"];
+let projects=[],risks=[],currentId=null,editId=null,view="dashboard",filters={q:"",f:"All"};
+
+function seedRisks(){ // generate register entries matching each sample project's risk counts
+  const out=[];let n=1;
+  SAMPLE.forEach(p=>[["High",p.high],["Medium",p.med],["Low",p.low]].forEach(([lvl,c])=>{
+    for(let i=0;i<c;i++,n++)out.push({rid:"R-"+String(n).padStart(3,"0"),pid:p.id,desc:RISK_TEXT[n%6],cat:CATS[n%6],prob:lvl,impact:lvl,level:lvl,mit:"Monitor weekly and assign an owner",status:"Open"});
+  }));return out;
+}
+function load(){
+  try{projects=JSON.parse(localStorage.getItem("pmoProjects"));risks=JSON.parse(localStorage.getItem("pmoRisks"));}catch(e){}
+  if(!Array.isArray(projects)||!projects.length||!Array.isArray(risks)){resetData(true);}
+}
+function save(){localStorage.setItem("pmoProjects",JSON.stringify(projects));localStorage.setItem("pmoRisks",JSON.stringify(risks));}
+function resetData(silent){
+  if(!silent&&!confirm("Restore the original 3 sample projects? All current data will be lost."))return;
+  projects=JSON.parse(JSON.stringify(SAMPLE));risks=seedRisks();save();
+  if(!silent){toast("Demo data restored");render();}
+}
+
+/* ================= CALCULATIONS ================= */
+function calc(p){
+  const util=p.budget>0?p.actual/p.budget*100:0;           // Budget utilization %
+  const budgetVar=p.budget-p.actual;                        // Budget variance
+  const progVar=p.ap-p.pp;                                  // Progress/schedule variance
+  const score=p.high*3+p.med*2+p.low;                       // Risk score
+  const riskLvl=score>=8?"High":score>=4?"Medium":"Low";
+  // severity per dimension: 0 green, 1 yellow, 2 red -> most serious wins
+  const sBudget=util>100?2:util>90?1:0, sProg=progVar<-15?2:progVar<-5?1:0, sRisk=score>=8?2:score>=4?1:0;
+  const sev=Math.max(sBudget,sProg,sRisk);
+  return {util,budgetVar,remaining:p.budget-p.actual,progVar,score,riskLvl,sev,
+    health:["On Track","At Risk","Critical"][sev],color:["green","yellow","red"][sev],
+    schedule:progVar>=-5?"On Schedule":progVar>=-15?"Slightly Behind":"Behind Schedule"};
+}
+const M=n=>"PKR "+(n/1e6).toFixed(n%1e6?1:0)+"M";
+const P=n=>(Math.round(n*10)/10)+"%";
+const badge=(t,c)=>`<span class="badge ${c}">${t}</span>`;
+const esc=s=>String(s??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const riskColor=l=>({High:"red",Medium:"yellow",Low:"green"}[l]);
+function bar(label,val,color,txt){return `<div class="row"><div class="l"><span>${label}</span><b>${txt??P(val)}</b></div><div class="bar"><i style="width:${Math.min(100,Math.max(0,val))}%;background:${color}"></i></div></div>`;}
+const cur=()=>projects.find(p=>p.id===currentId)||projects[0];
+
+/* ================= NAVIGATION ================= */
+function enterApp(){document.getElementById("welcome").style.display="none";document.getElementById("app").style.display="block";render();}
+function go(v,id){view=v;if(id)currentId=id;if(v!=="add")editId=null;side.classList.remove("open");render();window.scrollTo(0,0);}
+document.querySelectorAll("aside a").forEach(a=>a.onclick=()=>go(a.dataset.v));
+function toast(m,bad){const t=document.getElementById("toast");t.textContent=m;t.style.background=bad?"#d92d20":"#12a150";t.style.display="block";setTimeout(()=>t.style.display="none",2600);}
+function render(){
+  document.querySelectorAll("aside a").forEach(a=>a.classList.toggle("active",a.dataset.v===(view==="details"?"projects":view)));
+  const v=document.getElementById("view");
+  if(!projects.length&&!["add","projects","dashboard"].includes(view)){v.innerHTML=`<div class="card">No projects yet. Add one first.</div>`;return;}
+  ({dashboard:rDashboard,projects:rProjects,add:rAdd,details:rDetails,risks:rRisks,performance:rPerformance,report:rReport}[view])(v);
+}
+function projectSelect(){return `<div class="toolbar noprint"><select onchange="currentId=this.value;render()">${projects.map(p=>`<option value="${p.id}" ${p.id===cur().id?"selected":""}>${esc(p.id)} - ${esc(p.name)}</option>`).join("")}</select></div>`;}
+
+/* ================= DASHBOARD ================= */
+function rDashboard(v){
+  const n=projects.length,c=projects.map(calc);
+  const on=c.filter(x=>x.sev===0).length,risk=c.filter(x=>x.sev>0).length;
+  const tot=projects.reduce((s,p)=>s+p.budget,0),avg=n?projects.reduce((s,p)=>s+p.ap,0)/n:0;
+  v.innerHTML=`<h1 class="t">PMO Dashboard</h1><p class="sub">Project Portfolio Overview</p>
+  <div class="grid">
+   <div class="card kpi"><small>Total Projects</small><b>${n}</b></div>
+   <div class="card kpi"><small>Projects On Track</small><b style="color:var(--g)">${on}</b></div>
+   <div class="card kpi"><small>Projects At Risk / Critical</small><b style="color:var(--r)">${risk}</b></div>
+   <div class="card kpi"><small>Total Budget</small><b>${M(tot)}</b></div>
+   <div class="card kpi"><small>Average Progress</small><b>${Math.round(avg)}%</b></div></div>
+  <div class="card"><div style="display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px"><h3>Project Portfolio</h3>
+   <button class="btn sec sm noprint" onclick="resetData()">Reset Demo Data</button></div>
+   <div class="tw">${projectTable(projects)}</div></div>`;
+}
+function projectTable(list,actions){
+  if(!list.length)return `<p style="color:var(--muted)">No projects found.</p>`;
+  return `<table><tr><th>Project Name</th><th>Project Manager</th><th>Budget</th><th>Progress</th><th>Schedule Status</th><th>Risk Level</th><th>Overall Health</th><th>Action</th></tr>`+
+  list.map(p=>{const c=calc(p);return `<tr><td><b>${esc(p.name)}</b><br><small style="color:var(--muted)">${esc(p.id)}</small></td><td>${esc(p.manager)}</td><td>${M(p.budget)}</td>
+   <td style="min-width:110px">${P(p.ap)}<div class="bar" style="height:8px"><i style="width:${p.ap}%;background:var(--blue)"></i></div></td>
+   <td>${badge(c.schedule,c.progVar>=-5?"green":c.progVar>=-15?"yellow":"red")}</td><td>${badge(c.riskLvl,riskColor(c.riskLvl))}</td><td>${badge(c.health,c.color)}</td>
+   <td style="white-space:nowrap"><button class="btn sm" onclick="go('details','${p.id}')">View</button>${actions?`<button class="btn sm sec" onclick="editProject('${p.id}')">Edit</button><button class="btn sm del" onclick="delProject('${p.id}')">Delete</button>`:""}</td></tr>`}).join("")+`</table>`;
+}
+
+/* ================= PROJECTS LIST (search + filter) ================= */
+function rProjects(v){
+  v.innerHTML=`<h1 class="t">Projects</h1><p class="sub">Search, filter and manage all projects</p>
+  <div class="card"><div class="toolbar"><input id="q" placeholder="Search Projects..." value="${esc(filters.q)}" oninput="filters.q=this.value;refreshList()">
+   <select onchange="filters.f=this.value;refreshList()">${["All","On Track","At Risk","Critical","Completed","In Progress"].map(o=>`<option ${o===filters.f?"selected":""}>${o}</option>`).join("")}</select>
+   <button class="btn" onclick="go('add')">+ Add Project</button></div><div class="tw" id="list"></div></div>`;
+  refreshList();
+}
+function refreshList(){
+  const q=filters.q.toLowerCase(),f=filters.f;
+  const list=projects.filter(p=>{const c=calc(p);
+    const m=[p.name,p.id,p.manager,p.dept].join(" ").toLowerCase().includes(q);
+    const ok=f==="All"||c.health===f||p.status===f;return m&&ok;});
+  document.getElementById("list").innerHTML=projectTable(list,true);
+}
+function delProject(id){
+  if(!confirm("Delete this project and its risks? This cannot be undone."))return;
+  projects=projects.filter(p=>p.id!==id);risks=risks.filter(r=>r.pid!==id);save();
+  if(currentId===id)currentId=null;toast("Project deleted");render();
+}
+function editProject(id){editId=id;view="add";render();}
+
+/* ================= ADD / EDIT FORM ================= */
+const FIELDS=[
+ ["Project Information"],["name","Project Name","text"],["id","Project ID","text"],["manager","Project Manager","text"],["dept","Department","text"],["sponsor","Sponsor","text"],["start","Project Start Date","date"],["end","Project End Date","date"],
+ ["Budget Information (PKR)"],["budget","Approved Budget","number"],["planned","Planned Cost","number"],["actual","Actual Cost","number"],
+ ["Schedule Information"],["pp","Planned Progress (%)","number"],["ap","Actual Progress (%)","number"],["pd","Planned Duration (days)","number"],["ad","Actual Duration (days)","number"],
+ ["Risk Information"],["high","Number of High Risks","number"],["med","Number of Medium Risks","number"],["low","Number of Low Risks","number"],
+ ["Other Project Information"],["status","Project Status","select"],["desc","Project Description","textarea"]];
+const REQUIRED=["name","id","manager","dept","sponsor","start","end","budget","planned","actual","pp","ap","pd","ad","high","med","low"];
+function rAdd(v){
+  const p=editId?projects.find(x=>x.id===editId):null;
+  v.innerHTML=`<h1 class="t">${p?"Edit Project":"Add New Project"}</h1><p class="sub">Enter standardized PMO data. Health, variances and risk score are calculated automatically.</p>
+  <div class="card"><div class="form">`+FIELDS.map(f=>{
+    if(f.length===1)return `<div class="sec-t">${f[0]}</div>`;
+    const [k,l,t]=f,val=p?p[k]:"";let input;
+    if(t==="select")input=`<select id="f_${k}">${["Planning","In Progress","On Hold","Completed"].map(o=>`<option ${val===o?"selected":""}>${o}</option>`).join("")}</select>`;
+    else if(t==="textarea")input=`<textarea id="f_${k}" rows="3">${esc(val)}</textarea>`;
+    else input=`<input id="f_${k}" type="${t}" ${t==="number"?'min="0" step="any"':""} value="${esc(val)}" ${k==="id"&&p?"readonly":""}>`;
+    return `<div class="${t==="textarea"?"full":""}"><label>${l}${REQUIRED.includes(k)?" *":""}</label>${input}<div class="err" id="e_${k}"></div></div>`;
+  }).join("")+`</div><div style="margin-top:18px"><button class="btn" onclick="saveProject()">Save Project</button>
+  <button class="btn sec" onclick="${p?"go('projects')":"clearForm()"}">${p?"Cancel":"Clear Form"}</button></div></div>`;
+}
+function clearForm(){FIELDS.forEach(f=>{if(f.length>1){const e=document.getElementById("f_"+f[0]);if(e){e.value=f[2]==="select"?"Planning":"";e.classList.remove("bad");document.getElementById("e_"+f[0]).textContent="";}}});}
+function saveProject(){
+  const d={};let ok=true;
+  const fail=(k,m)=>{ok=false;document.getElementById("f_"+k).classList.add("bad");document.getElementById("e_"+k).textContent=m;};
+  FIELDS.forEach(f=>{if(f.length>1){const k=f[0];d[k]=document.getElementById("f_"+k).value.trim();document.getElementById("f_"+k).classList.remove("bad");document.getElementById("e_"+k).textContent="";}});
+  REQUIRED.forEach(k=>{if(d[k]==="")fail(k,"This field is required");});
+  ["budget","planned","actual","pd","ad","high","med","low"].forEach(k=>{if(d[k]!==""&&(isNaN(d[k])||+d[k]<0))fail(k,"Enter a valid number (0 or more)");});
+  ["high","med","low","pd","ad"].forEach(k=>{if(d[k]!==""&&!isNaN(d[k])&&+d[k]>=0&&k.length<4&&!Number.isInteger(+d[k]))fail(k,"Must be a whole number");});
+  ["pp","ap"].forEach(k=>{if(d[k]!==""&&(isNaN(d[k])||+d[k]<0||+d[k]>100))fail(k,"Must be between 0 and 100");});
+  if(d.budget!==""&&+d.budget===0)fail("budget","Approved budget must be greater than 0");
+  if(d.start&&isNaN(Date.parse(d.start)))fail("start","Invalid date");
+  if(d.end&&isNaN(Date.parse(d.end)))fail("end","Invalid date");
+  if(d.start&&d.end&&Date.parse(d.end)<Date.parse(d.start))fail("end","End date cannot be before start date");
+  if(!editId&&d.id&&projects.some(p=>p.id.toLowerCase()===d.id.toLowerCase()))fail("id","Project ID already exists");
+  if(!ok){toast("Please fix the highlighted fields",true);return;}
+  ["budget","planned","actual","pp","ap","pd","ad","high","med","low"].forEach(k=>d[k]=+d[k]);
+  if(editId)projects=projects.map(p=>p.id===editId?d:p);else projects.push(d);
+  save();currentId=d.id;toast(editId?"Project updated successfully":"Project saved successfully");go("details",d.id);
+}
+
+/* ================= PROJECT DETAILS ================= */
+function rDetails(v){
+  const p=cur(),c=calc(p);
+  v.innerHTML=`<h1 class="t">${esc(p.name)}</h1><p class="sub">${esc(p.id)} • ${esc(p.manager)} • ${badge(p.status,"gray")} • ${esc(p.dept)}</p>
+  <div class="calcnote">ℹ️ Health, variances and risk level below are <b>calculated indicators</b> generated automatically from the entered data.</div>
+  <div class="grid">${[["Approved Budget",M(p.budget)],["Actual Cost",M(p.actual)],["Budget Utilization",P(c.util)],["Planned Progress",P(p.pp)],["Actual Progress",P(p.ap)],["Progress Variance",(c.progVar>0?"+":"")+P(c.progVar)],["Risk Score",c.score+" ("+c.riskLvl+")"]].map(k=>`<div class="card kpi"><small>${k[0]}</small><b>${k[1]}</b></div>`).join("")}
+   <div class="card kpi"><small>Overall Health</small>${badge(c.health,c.color)}</div></div>
+  <div class="grid2"><div class="card"><h3>Progress</h3>${bar("Planned Progress",p.pp,"#9db4de")}${bar("Actual Progress",p.ap,c.progVar<-5?"var(--y)":"var(--g)")}<b>Variance: ${c.progVar>0?"+":""}${P(c.progVar)}</b> <span style="color:var(--muted)">(${c.progVar<0?"behind":"ahead of"} plan)</span></div>
+   <div class="card"><h3>Budget Performance</h3>${bar("Budget Utilization",c.util,c.util>100?"var(--r)":c.util>90?"var(--y)":"var(--blue)")}
+   <table><tr><td>Approved Budget</td><td>${M(p.budget)}</td></tr><tr><td>Actual Cost</td><td>${M(p.actual)}</td></tr><tr><td>Remaining Budget</td><td>${M(c.remaining)}</td></tr><tr><td>Budget Variance</td><td style="color:${c.budgetVar<0?"var(--r)":"var(--g)"}">${c.budgetVar<0?"-":""}${M(Math.abs(c.budgetVar))}</td></tr></table></div></div>
+  <div class="card"><h3>Description</h3><p>${esc(p.desc)||"—"}</p><button class="btn sec noprint" onclick="editProject('${p.id}')">Edit</button> <button class="btn sec noprint" onclick="go('report')">View Report</button></div>`;
+}
+
+/* ================= RISKS ================= */
+function rRisks(v){
+  const p=cur(),c=calc(p),list=risks.filter(r=>r.pid===p.id);
+  v.innerHTML=`<h1 class="t">Risk Management</h1><p class="sub">Risk register and scoring (High×3, Medium×2, Low×1)</p>${projectSelect()}
+  <div class="grid">${[["Total Risks",p.high+p.med+p.low],["High Risks",p.high],["Medium Risks",p.med],["Low Risks",p.low],["Risk Score",c.score]].map(k=>`<div class="card kpi"><small>${k[0]}</small><b>${k[1]}</b></div>`).join("")}
+   <div class="card kpi"><small>Overall Risk Level</small>${badge(c.riskLvl,riskColor(c.riskLvl))}</div></div>
+  <div class="card noprint"><h3>Add Risk</h3><div class="form">
+   <div class="full"><label>Risk Description *</label><input id="r_desc"><div class="err" id="r_err"></div></div>
+   <div><label>Category</label><select id="r_cat">${CATS.map(x=>`<option>${x}</option>`).join("")}</select></div>
+   ${["Probability","Impact","Risk Level"].map(l=>`<div><label>${l}</label><select id="r_${l.split(" ")[0].toLowerCase()}"><option>Low</option><option>Medium</option><option>High</option></select></div>`).join("")}
+   <div><label>Mitigation</label><input id="r_mit"></div>
+   <div><label>Status</label><select id="r_status"><option>Open</option><option>Mitigating</option><option>Closed</option></select></div></div>
+   <button class="btn" style="margin-top:14px" onclick="addRisk()">Add Risk</button></div>
+  <div class="card" style="margin-top:20px"><h3>Risk Register - ${esc(p.name)}</h3><div class="tw">${list.length?`<table><tr><th>Risk ID</th><th>Risk Description</th><th>Category</th><th>Probability</th><th>Impact</th><th>Risk Level</th><th>Mitigation</th><th>Status</th><th class="noprint"></th></tr>`+
+   list.map(r=>`<tr><td>${r.rid}</td><td>${esc(r.desc)}</td><td>${r.cat}</td><td>${r.prob}</td><td>${r.impact}</td><td>${badge(r.level,riskColor(r.level))}</td><td>${esc(r.mit)}</td><td>${r.status}</td><td class="noprint"><button class="btn sm del" onclick="delRisk('${r.rid}')">Delete</button></td></tr>`).join("")+`</table>`:"<p style='color:var(--muted)'>No risks registered.</p>"}</div></div>`;
+}
+function addRisk(){
+  const p=cur(),g=id=>document.getElementById(id).value.trim();
+  if(!g("r_desc")){document.getElementById("r_err").textContent="Risk description is required";toast("Risk description is required",true);return;}
+  const max=risks.reduce((m,r)=>Math.max(m,parseInt(r.rid.slice(2))||0),0);
+  const level=g("r_risk");
+  risks.push({rid:"R-"+String(max+1).padStart(3,"0"),pid:p.id,desc:g("r_desc"),cat:g("r_cat"),prob:g("r_probability"),impact:g("r_impact"),level,mit:g("r_mit")||"—",status:g("r_status")});
+  p[{High:"high",Medium:"med",Low:"low"}[level]]++;   // keeps risk score in sync with the register
+  save();toast("Risk added - risk score updated");render();
+}
+function delRisk(rid){
+  if(!confirm("Delete this risk?"))return;
+  const r=risks.find(x=>x.rid===rid),p=projects.find(x=>x.id===r.pid),k={High:"high",Medium:"med",Low:"low"}[r.level];
+  if(p&&p[k]>0)p[k]--;risks=risks.filter(x=>x.rid!==rid);save();toast("Risk deleted");render();
+}
+
+/* ================= PERFORMANCE ================= */
+function rPerformance(v){
+  const p=cur(),c=calc(p),deg=Math.min(100,c.util)*3.6,rc={green:"#12a150",yellow:"#e89b0c",red:"#d92d20"}[c.color];
+  const tot=Math.max(1,p.high+p.med+p.low);
+  v.innerHTML=`<h1 class="t">Project Performance</h1><p class="sub">Calculated performance indicators</p>${projectSelect()}
+  <div class="grid2">
+   <div class="card"><h3>Progress Performance</h3>${bar("Planned",p.pp,"#9db4de")}${bar("Actual",p.ap,"var(--blue)")}<b>Variance ${c.progVar>0?"+":""}${P(c.progVar)}</b></div>
+   <div class="card"><h3>Budget Performance</h3>${bar("Approved Budget",100,"#9db4de",M(p.budget))}${bar("Actual Cost",c.util,c.util>100?"var(--r)":"var(--blue)",M(p.actual))}<b>Utilization ${P(c.util)}</b></div>
+   <div class="card"><h3>Schedule Performance</h3>${bar("Planned Duration",100,"#9db4de",p.pd+" days")}${bar("Actual Duration",p.pd?p.ad/p.pd*100:0,p.ad>p.pd?"var(--y)":"var(--g)",p.ad+" days")}<b>${p.ad-p.pd>0?"+":""}${p.ad-p.pd} days vs plan • ${c.schedule}</b></div>
+   <div class="card"><h3>Risk Performance</h3>${bar("High",p.high/tot*100,"var(--r)",p.high)}${bar("Medium",p.med/tot*100,"var(--y)",p.med)}${bar("Low",p.low/tot*100,"var(--g)",p.low)}<b>Score ${c.score} - ${c.riskLvl}</b></div>
+   <div class="card" style="text-align:center"><h3>Overall Project Health</h3><div class="ring" style="background:conic-gradient(${rc} ${deg}deg,#e9edf5 0)"><span>${Math.round(c.util)}%</span></div><small style="color:var(--muted)">Budget used</small><p>${badge(c.health,c.color)}</p>
+   <small style="color:var(--muted)">Worst of: budget, progress variance, risk score</small></div></div>`;
+}
+
+/* ================= REPORT ================= */
+function rReport(v){
+  const p=cur(),c=calc(p),t=(rows)=>`<table>${rows.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join("")}</table>`;
+  v.innerHTML=projectSelect()+`<div class="card report"><h1 style="margin-top:0;color:var(--navy)">Project Performance Report</h1><p style="color:var(--muted)">Generated on ${new Date().toLocaleDateString()}</p>
+  <h2>Project Information</h2>${t([["Project Name",esc(p.name)],["Project ID",esc(p.id)],["Project Manager",esc(p.manager)],["Department",esc(p.dept)],["Sponsor",esc(p.sponsor)],["Duration",p.start+" to "+p.end],["Status",p.status],["Description",esc(p.desc)]])}
+  <h2>Performance Summary</h2>${t([["Overall Health",badge(c.health,c.color)+" (calculated)"],["Progress Variance",(c.progVar>0?"+":"")+P(c.progVar)],["Budget Utilization",P(c.util)],["Risk Score",c.score+" - "+c.riskLvl]])}
+  <h2>Budget Summary</h2>${t([["Approved Budget",M(p.budget)],["Planned Cost",M(p.planned)],["Actual Cost",M(p.actual)],["Remaining Budget",M(c.remaining)],["Budget Variance",(c.budgetVar<0?"-":"")+M(Math.abs(c.budgetVar))]])}
+  <h2>Schedule Summary</h2>${t([["Planned Progress",P(p.pp)],["Actual Progress",P(p.ap)],["Schedule Variance",(c.progVar>0?"+":"")+P(c.progVar)],["Planned / Actual Duration",p.pd+" / "+p.ad+" days"],["Schedule Status",c.schedule]])}
+  <h2>Risk Summary</h2>${t([["High / Medium / Low",p.high+" / "+p.med+" / "+p.low],["Risk Score",c.score],["Overall Risk Level",c.riskLvl]])}
+  <div class="foot">Generated by PMO Project Management Portal</div></div>
+  <p class="noprint" style="margin-top:16px"><button class="btn" onclick="window.print()">Print / Export Report</button></p>`;
+}
+
+load();
+</script>
+</body>
+</html>
