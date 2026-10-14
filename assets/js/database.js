@@ -3,12 +3,15 @@
    ---------------------------------------------------------------------
    HOW SAVING WORKS
    * database.json is the only place where project data is stored.
-   * READING: the selected file is loaded with jQuery AJAX ($.ajax) from a
-     temporary blob: URL, then parsed with JSON.parse.
-   * WRITING: AJAX cannot write files on your computer and this project has
-     no server. So the browser "File System Access API" is used instead:
-     the user selects database.json once and allows editing. Every change
-     is written to the file, read back and compared to confirm it was saved.
+   * READING: if database.json is in the same folder as this page (GitHub
+     Pages, or any web server), it is loaded with jQuery AJAX and the
+     dashboard opens immediately. A file chosen with the file picker is
+     read the same way, through a temporary blob: URL.
+   * WRITING: AJAX cannot write files and this project has no server.
+     On a published site the folder copy is read-only. Direct saving uses
+     the browser "File System Access API": the user selects database.json
+     once and allows editing. Every change is written to that file, read
+     back and compared to confirm it was saved.
    * Writes run one after another (a queue) so two saves never overlap.
    * IndexedDB only remembers WHICH file was connected (the file handle) so
      the app can reconnect next time. No project data is stored there and
@@ -68,21 +71,58 @@ const DB = {
 
   /* ---------------- Connecting ---------------- */
 
-  /** On page load: reconnect automatically if the browser still allows access to the last file. */
+  /**
+   * On page load: use database.json from this same folder when the page is
+   * served (GitHub Pages or a local server). Fall back to a previously
+   * connected file, then to the Connect button.
+   */
   async boot() {
+    if (this.supported) {
+      const h = await HandleStore.get();
+      if (h) this._stored = h;
+    }
+    if (await this.loadSameDirectory()) return;
+    if (this._stored) {
+      try { if ((await this._stored.queryPermission({ mode: "readwrite" })) === "granted") return this.attach(this._stored); } catch (e) { }
+    }
+    this.showConnectScreen();
+  },
+
+  /** Read database.json that sits next to index.html. Browsers block this for file:// pages. */
+  async loadSameDirectory() {
+    if (location.protocol === "file:") return false;
+    let text;
+    try {
+      text = await $.ajax({ url: "database.json", dataType: "text", cache: false, timeout: 20000 });
+    } catch (e) { return false; }
+    const raw = this.parse(text, "database.json");
+    if (raw === false) { this._badFile = true; return false; }
+    this.mode = "hosted";
+    this.fileName = "database.json";
+    this.diskRevision = (raw && raw.meta && raw.meta.revision) || 0;
+    this.loaded(raw);
+    return true;
+  },
+
+  /** Shown only when the same-folder file could not be opened. */
+  showConnectScreen() {
+    $("#connectBox").show();
     if (!this.supported) {
       $("#btnConnect").prop("disabled", true);
       App.welcomeMsg(`<b>This browser cannot edit files directly.</b> Please open the dashboard in <b>Google Chrome</b> or <b>Microsoft Edge</b> on a computer.<br>
         You can still open database.json with the link below, but you must <b>export</b> it after making changes.`, "warn");
       return;
     }
-    const h = await HandleStore.get();
-    if (!h) return;
-    this._stored = h;
-    try { if ((await h.queryPermission({ mode: "readwrite" })) === "granted") return this.attach(h); } catch (e) { }
-    // The browser needs one click before it gives file access again.
-    $("#btnReconnect").text("🔄 Reconnect " + h.name).show();
-    $("#btnConnect").text("📂 Select a different file");
+    if (this._stored) {
+      $("#btnReconnect").text("🔄 Reconnect " + this._stored.name).show();
+      $("#btnConnect").text("📂 Select a different file");
+    }
+    if (this._badFile) return;
+    const why = location.protocol === "file:"
+      ? `This page was opened straight from the computer, so the browser will not read <b>database.json</b> until you select it.`
+      : `<b>database.json</b> was not found in the same folder as this page.`;
+    App.welcomeMsg(why, "warn");
+    $("#welcomeNote").html(`Click <b>Connect Database</b>, select the <b>database.json</b> file in the PMAI folder, and allow the browser to edit it (Chrome or Edge on a computer).`);
   },
 
   /** "Connect Database" button: let the user pick database.json. */
@@ -158,7 +198,7 @@ const DB = {
     }
     App.welcomeMsg("");
     App.start();
-    toast("Connected to " + this.fileName);
+    toast(this.mode === "hosted" ? "Opened database.json" : "Connected to " + this.fileName);
   },
 
   async init(demo) {
@@ -265,7 +305,7 @@ const DB = {
    * writes the current data again (useful after an error). In fallback mode it exports the file.
    */
   saveNow() {
-    if (this.mode === "memory") return this.exportJSON();
+    if (this.mode !== "fs") return this.exportJSON();
     if (this.status.conflict) return this.showTools();
     this.pending++; this.status.state = "saving"; App.renderDbStatus();
     const job = this.queue.then(() => this.write(true));
@@ -281,7 +321,7 @@ const DB = {
     App.modal({
       title: "Database options",
       body: `<table class="kv"><tr><td>File</td><td>${esc(this.fileName)}</td></tr>
-        <tr><td>Saving</td><td>${this.mode === "fs" ? badge("Saves directly to the file", "green") : badge("Not saving - export needed", "red")}</td></tr>
+        <tr><td>Saving</td><td>${this.mode === "fs" ? badge("Saves directly to the file", "green") : this.mode === "hosted" ? badge("Loaded from database.json in this folder", "green") : badge("Not saving - export needed", "red")}</td></tr>
         <tr><td>Last saved</td><td>${s.lastSaved ? new Date(s.lastSaved).toLocaleString() : "—"}</td></tr>
         <tr><td>Records</td><td>${d.projects.length} projects, ${d.risks.length} risks, ${d.issues.length} issues, ${d.comments.length} comments/updates</td></tr></table>
         ${s.conflict ? `<div class="note bad mt">${esc(s.error)}</div>` : ""}
@@ -291,7 +331,7 @@ const DB = {
           <div><label>Schedule critical (% behind plan)</label><input type="number" name="scheduleCritical" min="1" max="100" value="${st.scheduleCritical}"></div>
           <div><label>Budget warning (% of budget used)</label><input type="number" name="budgetWarning" min="1" max="100" value="${st.budgetWarning}"></div>
         </form>
-        <div class="note mt small">AJAX cannot write files and this dashboard has no server, so saving uses the browser's File System Access API on the file you selected. Export / Import are provided as a backup.</div>`,
+        <div class="note mt small">The dashboard reads <b>database.json</b> from the same folder automatically. A published website cannot write that file back, so use <b>Export JSON</b> to update it, or connect the file in Chrome or Edge to save directly.</div>`,
       buttons: [
         { label: "Save thresholds", onClick: () => this.saveSettings() },
         ...(this.mode === "fs" ? [{ label: "Reload from file", cls: "sec", onClick: () => { this.reload(); } }] : []),

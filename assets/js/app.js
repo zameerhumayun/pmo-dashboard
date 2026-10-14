@@ -99,12 +99,14 @@ const App = {
   renderDbStatus() {
     const s = DB.status;
     let cls = "ok", txt = "✓ Saved to " + DB.fileName;
-    if (DB.mode === "memory") { cls = s.dirty ? "bad" : "warn"; txt = s.dirty ? "⚠ Not saved - export needed" : "⚠ Read-only copy"; }
+    if (DB.mode === "hosted") { cls = s.dirty ? "bad" : "ok"; txt = s.dirty ? "⚠ Export to update database.json" : "✓ database.json"; }
+    else if (DB.mode === "memory") { cls = s.dirty ? "bad" : "warn"; txt = s.dirty ? "⚠ Not saved - export needed" : "⚠ Read-only copy"; }
     else if (s.state === "saving") { cls = "busy"; txt = "Saving…"; }
     else if (s.state === "error") { cls = "bad"; txt = "⚠ Save failed"; }
     $("#dbStatus").attr("class", "dbpill " + cls).text(txt);
     let b = "";
-    if (DB.mode === "memory") b = `<div class="note warn noprint">⚠ <b>Changes are not being saved to a file.</b> This browser cannot edit files directly. Click <b>Export JSON</b> and replace database.json in the PMAI folder to keep your changes.</div>`;
+    if (DB.mode === "hosted" && s.dirty) b = `<div class="note warn noprint">⚠ <b>This website cannot write database.json.</b> Click <b>Export JSON</b> and replace the file in the project folder, or open the folder in Chrome or Edge and use <b>Connect Database</b> to save directly.</div>`;
+    else if (DB.mode === "memory") b = `<div class="note warn noprint">⚠ <b>Changes are not being saved to a file.</b> Click <b>Export JSON</b> and replace database.json in the PMAI folder to keep your changes.</div>`;
     else if (s.state === "error") b = `<div class="note bad noprint">⚠ <b>The last change was NOT saved:</b> ${esc(s.error)} <button class="btn sm" onclick="DB.saveNow()">Try again</button> <button class="btn sm sec" onclick="DB.exportJSON()">Export a backup</button></div>`;
     $("#banner").html(b);
   },

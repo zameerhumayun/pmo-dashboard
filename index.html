@@ -12,7 +12,7 @@
 <section id="welcome">
   <h1>PMO Project Management Dashboard</h1>
   <p>Project Monitoring, Performance &amp; Risk Management</p>
-  <div id="connectBox">
+  <div id="connectBox" style="display:none">
     <button class="btn big" id="btnReconnect" style="display:none"></button>
     <button class="btn big" id="btnConnect">📂 Connect Database (database.json)</button>
     <div class="welcome-links">
@@ -20,10 +20,9 @@
     </div>
     <input type="file" id="importFile" accept=".json,application/json" hidden>
   </div>
-  <div id="welcomeMsg"></div>
-  <div class="welcome-note">
-    All project data is stored in the <b>database.json</b> file in the PMAI folder.<br>
-    Click <b>Connect Database</b>, select that file and allow the browser to edit it (Chrome or Edge on a computer).
+  <div id="welcomeMsg"><div class="note">Loading <b>database.json</b> from this folder…</div></div>
+  <div class="welcome-note" id="welcomeNote">
+    When <b>database.json</b> is in the same folder as this page, the dashboard opens it automatically.
   </div>
 </section>
 

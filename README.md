@@ -95,24 +95,31 @@ PMAI/
 
 ## 7. How to Open the Dashboard
 
-1. Open the `PMAI` folder.
-2. Double-click **`index.html`** – it opens in your browser.
-3. Use **Google Chrome** or **Microsoft Edge** on a computer (these browsers can save to a local file).
+**Published site (GitHub Pages) or any web server**
 
-No installation or server is needed.
+Open the site. If `database.json` is in the same folder as `index.html`, the dashboard loads it and opens. No Connect step.
+
+**Opened from the computer (`index.html` double-click)**
+
+The browser blocks automatic reading of local files. Use **Google Chrome** or **Microsoft Edge**, click **Connect Database**, and select `database.json`.
 
 ## 8. How to Connect database.json
 
-1. On the start screen click **📂 Connect Database (database.json)**.
+Use Connect only when the page was opened from the computer, or when you want edits saved straight into the file:
+
+1. Click **📂 Connect Database (database.json)**.
 2. Select `PMAI\database.json` and click **Open**.
 3. When the browser asks, click **Edit files / Allow** so the dashboard can save changes.
 4. If the file is empty, choose **Load the 3 demo projects** or **Start with an empty dashboard**. A file that already has data is never overwritten.
 
 Next time you open the dashboard it reconnects automatically. If the browser asks again, click **🔄 Reconnect database.json**.
 
+On a published site the folder copy is read-only. After editing, use **Export JSON** and replace `database.json` in the project.
+
 **Saving:**
-- Every add, edit, resolve and delete is saved to `database.json` immediately. The green pill in the header shows **✓ Saved to database.json**.
-- **💾 Save Changes** writes all data to the file again (useful if a save failed).
+- When the file is connected in Chrome or Edge, every add, edit, resolve and delete is saved to `database.json` immediately. The green pill in the header shows **✓ Saved to database.json**.
+- On a published site the pill shows **✓ database.json**. Edits stay in the browser until you **Export JSON** and replace the file.
+- **💾 Save Changes** writes the connected file again (or downloads it on a published site).
 - **Export JSON** downloads a copy (backup). **Import JSON** replaces all data with another file (asks first).
 - Click the green pill for **Database options**: reload from file, alert thresholds, reset demo data.
 
