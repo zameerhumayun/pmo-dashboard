@@ -2,10 +2,10 @@
   "meta": {
     "app": "PMO Dashboard",
     "schemaVersion": 3,
-    "revision": 5,
+    "revision": 36,
     "initialized": true,
     "createdAt": "2026-10-14T00:00:00.000Z",
-    "updatedAt": "2026-10-14T21:38:43.219Z"
+    "updatedAt": "2026-10-14T23:49:12.298Z"
   },
   "settings": {
     "currency": "PKR",
@@ -44,19 +44,19 @@
       "manager": "Ayesha Khan",
       "dept": "Administration",
       "desc": "Installation of solar-powered parking shades to provide covered parking and support renewable energy usage on campus.",
-      "phase": "Execution",
-      "status": "In Progress",
+      "phase": "Closing",
+      "status": "Completed",
       "budget": 40000000,
       "planned": 38000000,
       "actual": 18000000,
       "start": "2026-03-01",
       "end": "2027-02-28",
       "pp": 60,
-      "ap": 52,
+      "ap": 100,
       "update": "Steel structures installed in Block A. Solar panel delivery is delayed by two weeks at the port.",
       "createdAt": "2026-10-14T00:00:00.000Z",
-      "updatedAt": "2026-10-14T00:00:00.000Z",
-      "completedAt": null
+      "updatedAt": "2026-10-14T23:45:30.654Z",
+      "completedAt": "2026-10-14T23:45:30.656Z"
     },
     {
       "id": "PMO-002",
@@ -97,46 +97,6 @@
       "createdAt": "2026-10-14T00:00:00.000Z",
       "updatedAt": "2026-10-14T00:00:00.000Z",
       "completedAt": null
-    },
-    {
-      "id": "PMO-004",
-      "name": "Chaim Cash",
-      "manager": "Architecto fuga Commodo est officia et cumque et in Nam dolores",
-      "dept": "Est id ut delectus in quis minim dolorem repudiandae aperiam aut",
-      "desc": "Neque deleniti veniam repudiandae rem dolores placeat nulla adipisicing harum consequuntur velit qui illum sint perferendis est duis do delectus",
-      "phase": "Planning",
-      "status": "At Risk",
-      "budget": 55,
-      "planned": 82,
-      "actual": 42,
-      "start": "1981-09-23",
-      "end": "1988-12-04",
-      "pp": 46,
-      "ap": 7,
-      "update": "In eveniet pariatur Et in veritatis a cillum alias fugiat alias quo exercitationem molestiae obcaecati neque provident eum ipsum",
-      "updatedAt": "2026-10-13T23:18:36.267Z",
-      "createdAt": "2026-10-13T23:18:36.267Z",
-      "completedAt": null
-    },
-    {
-      "id": "PMO-006",
-      "createdAt": "2026-10-14T21:25:43.498Z",
-      "completedAt": "2026-10-14T21:25:43.498Z",
-      "name": "Regina Dickerson",
-      "manager": "Accusamus quis laboriosam maiores et est illo earum quisquam quis",
-      "dept": "Sit quisquam dolorem culpa ea aut beatae reprehenderit eaque mollit quos praes",
-      "desc": "Fugit est rerum nulla incidunt aliquam ea voluptatem nulla asperiores lorem exercitationem occaecat qui sapiente culpa",
-      "phase": "Closing",
-      "status": "Completed",
-      "budget": 95,
-      "planned": 86,
-      "actual": 99,
-      "start": "2026-10-15",
-      "end": "2026-10-30",
-      "pp": 100,
-      "ap": 100,
-      "update": "Explicabo Enim et quod dignissimos deserunt fuga Dolor corrupti voluptatum pariatur Officiis enim quo quia ratione veniam",
-      "updatedAt": "2026-10-14T21:25:43.498Z"
     }
   ],
   "risks": [
@@ -149,7 +109,9 @@
       "impact": "Medium",
       "level": "Medium",
       "mit": "Confirm a backup supplier and track shipment weekly",
-      "status": "Open"
+      "status": "Resolved",
+      "updatedAt": "2026-10-14T23:48:10.477Z",
+      "resolvedAt": "2026-10-14T23:48:10.477Z"
     },
     {
       "id": "R-002",
@@ -160,7 +122,9 @@
       "impact": "Medium",
       "level": "Low",
       "mit": "Plan indoor electrical work for rainy days",
-      "status": "Open"
+      "status": "Resolved",
+      "updatedAt": "2026-10-14T23:43:52.078Z",
+      "resolvedAt": "2026-10-14T23:43:52.078Z"
     },
     {
       "id": "R-003",
@@ -171,7 +135,9 @@
       "impact": "Low",
       "level": "Low",
       "mit": "Use a change request form for every design change",
-      "status": "Mitigating"
+      "status": "Resolved",
+      "updatedAt": "2026-10-14T23:43:56.843Z",
+      "resolvedAt": "2026-10-14T23:43:56.843Z"
     },
     {
       "id": "R-004",
@@ -271,1292 +237,6 @@
       "level": "Low",
       "mit": "Run awareness sessions and provide a help desk",
       "status": "Open"
-    },
-    {
-      "id": "R-013",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-014",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-015",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-016",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-017",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-018",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-019",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-020",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-021",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-022",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-023",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-024",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-025",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-026",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-027",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-028",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-029",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-030",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-031",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-032",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-033",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-034",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-035",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-036",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-037",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-038",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-039",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-040",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-041",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-042",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-043",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.268Z"
-    },
-    {
-      "id": "R-044",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-045",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-046",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-047",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-048",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-049",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-050",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-051",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-052",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-053",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-054",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-055",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-056",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-057",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-058",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-059",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-060",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-061",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-062",
-      "projectId": "PMO-004",
-      "desc": "High risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "High",
-      "impact": "High",
-      "level": "High",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-063",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-064",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-065",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-066",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-067",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-068",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-069",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-070",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-071",
-      "projectId": "PMO-004",
-      "desc": "Medium risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Medium",
-      "impact": "Medium",
-      "level": "Medium",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-072",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-073",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-074",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-075",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-076",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-077",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.269Z"
-    },
-    {
-      "id": "R-078",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-079",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-080",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-081",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-082",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-083",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-084",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-085",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-086",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-087",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-088",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-089",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-090",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-091",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-092",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-093",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-094",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-095",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-096",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-097",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-098",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-099",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-100",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-101",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-102",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-103",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-104",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-105",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-106",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.270Z"
-    },
-    {
-      "id": "R-107",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-108",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-109",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-110",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-111",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-112",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-113",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-114",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-115",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Resolved",
-      "createdAt": "2026-10-13T23:18:36.271Z",
-      "updatedAt": "2026-10-13T23:19:03.092Z",
-      "resolvedAt": "2026-10-13T23:19:03.092Z"
-    },
-    {
-      "id": "R-116",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-117",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-118",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
-    },
-    {
-      "id": "R-119",
-      "projectId": "PMO-004",
-      "desc": "Low risk recorded at project setup - add details",
-      "cat": "General",
-      "prob": "Low",
-      "impact": "Low",
-      "level": "Low",
-      "mit": "",
-      "status": "Open",
-      "createdAt": "2026-10-13T23:18:36.271Z"
     }
   ],
   "issues": [
@@ -1566,8 +246,10 @@
       "desc": "Solar panel shipment held at the port",
       "severity": "Medium",
       "resolution": "Coordinate with the supplier and customs agent to clear the shipment",
-      "status": "Open",
-      "createdAt": "2026-10-10T00:00:00.000Z"
+      "status": "Resolved",
+      "createdAt": "2026-10-10T00:00:00.000Z",
+      "updatedAt": "2026-10-14T23:49:12.298Z",
+      "resolvedAt": "2026-10-14T23:49:12.298Z"
     },
     {
       "id": "I-002",
@@ -1608,6 +290,122 @@
   ],
   "activity": [
     {
+      "at": "2026-10-14T23:49:12.298Z",
+      "text": "Issue I-001 resolved"
+    },
+    {
+      "at": "2026-10-14T23:48:10.477Z",
+      "text": "Risk R-001 resolved"
+    },
+    {
+      "at": "2026-10-14T23:47:01.014Z",
+      "text": "Issue I-001 updated"
+    },
+    {
+      "at": "2026-10-14T23:45:58.586Z",
+      "text": "Risk R-001 updated"
+    },
+    {
+      "at": "2026-10-14T23:45:30.656Z",
+      "text": "Project PMO-001 updated (Completed)"
+    },
+    {
+      "at": "2026-10-14T23:44:46.530Z",
+      "text": "Issue I-001 resolved"
+    },
+    {
+      "at": "2026-10-14T23:44:33.914Z",
+      "text": "Risk R-001 resolved"
+    },
+    {
+      "at": "2026-10-14T23:43:56.843Z",
+      "text": "Risk R-003 resolved"
+    },
+    {
+      "at": "2026-10-14T23:43:52.078Z",
+      "text": "Risk R-002 resolved"
+    },
+    {
+      "at": "2026-10-14T23:43:35.480Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T23:42:49.969Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T23:41:56.707Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T23:41:31.725Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T23:18:38.863Z",
+      "text": "Demo data restored"
+    },
+    {
+      "at": "2026-10-14T23:17:18.968Z",
+      "text": "Data imported from database.json"
+    },
+    {
+      "at": "2026-10-14T23:11:08.034Z",
+      "text": "Project PMO-004 deleted"
+    },
+    {
+      "at": "2026-10-14T23:10:29.598Z",
+      "text": "Project PMO-006 deleted"
+    },
+    {
+      "at": "2026-10-14T23:03:47.276Z",
+      "text": "Project PMO-002 updated"
+    },
+    {
+      "at": "2026-10-14T23:03:19.618Z",
+      "text": "Project PMO-001 deleted"
+    },
+    {
+      "at": "2026-10-14T22:58:58.369Z",
+      "text": "Risk R-003 resolved"
+    },
+    {
+      "at": "2026-10-14T22:58:57.271Z",
+      "text": "Risk R-002 resolved"
+    },
+    {
+      "at": "2026-10-14T22:58:55.648Z",
+      "text": "Risk R-001 resolved"
+    },
+    {
+      "at": "2026-10-14T22:58:39.135Z",
+      "text": "Project PMO-001 completed"
+    },
+    {
+      "at": "2026-10-14T22:58:19.130Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T22:56:15.524Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T22:55:42.910Z",
+      "text": "Project PMO-001 completed"
+    },
+    {
+      "at": "2026-10-14T22:55:36.450Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T22:55:06.669Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
+      "at": "2026-10-14T22:52:43.175Z",
+      "text": "Project PMO-001 updated"
+    },
+    {
       "at": "2026-10-14T21:38:43.219Z",
       "text": "Data imported from database.json"
     },
@@ -1626,5 +424,46 @@
       "text": "Project PMO-004 created"
     }
   ],
-  "comments": []
+  "comments": [
+    {
+      "id": "C-001",
+      "projectId": "PMO-001",
+      "author": "Ayesha Khan",
+      "type": "Progress Update",
+      "text": "Steel structures for Block A parking are installed. Foundation work for Block B has started.",
+      "at": "2026-10-08T10:30:00.000Z"
+    },
+    {
+      "id": "C-002",
+      "projectId": "PMO-001",
+      "author": "PMO Office",
+      "type": "Comment",
+      "text": "Please share the revised delivery date for the solar panels in the next meeting.",
+      "at": "2026-10-11T14:15:00.000Z"
+    },
+    {
+      "id": "C-003",
+      "projectId": "PMO-002",
+      "author": "Usman Ali",
+      "type": "Progress Update",
+      "text": "Core switches replaced in all academic blocks. Monitoring dashboard is in final testing.",
+      "at": "2026-10-10T09:00:00.000Z"
+    },
+    {
+      "id": "C-004",
+      "projectId": "PMO-003",
+      "author": "Bilal Ahmed",
+      "type": "Progress Update",
+      "text": "Fee payment testing failed twice. Bank technical team is reviewing the gateway settings.",
+      "at": "2026-10-09T11:45:00.000Z"
+    },
+    {
+      "id": "C-005",
+      "projectId": "PMO-003",
+      "author": "PMO Office",
+      "type": "Comment",
+      "text": "Project is over budget. A cost review meeting is scheduled for next week.",
+      "at": "2026-10-12T16:20:00.000Z"
+    }
+  ]
 }

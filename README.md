@@ -35,13 +35,8 @@ To demonstrate how project information is **entered**, **monitored**, **analysed
 | HTML5 | Page structure (`index.html`) |
 | CSS3 | Layout, colours, responsive design, print layout (`assets/css/style.css`) |
 | JavaScript | All logic: calculations, rules, validation |
-| jQuery 3.7 | DOM updates, events, AJAX file reading |
-| AJAX (`$.ajax`) | Reading the selected `database.json` file |
 | JSON | Data format of `database.json` |
 | Chart.js 4 | Doughnut and bar charts |
-| File System Access API (browser) | Writing changes back to `database.json` |
-
-No Node.js, PHP, database server, framework or AI service is used. jQuery and Chart.js are stored locally in `assets/js/vendor`, so the dashboard works offline.
 
 ## 5. Project Folder Structure
 
@@ -50,7 +45,6 @@ PMAI/
 ├── index.html              Main application
 ├── reference.html          Original dashboard (design reference - unchanged)
 ├── database.json           Project data (projects, risks, issues, comments, settings)
-├── README.md               This file
 └── assets/
     ├── css/
     │   └── style.css       All styles (based on reference.html)
@@ -93,43 +87,14 @@ PMAI/
 6. **Reports** – printable report of one project.
 7. **Project Details** (opened with *View*) – all information, charts, alerts, open risks / issues, comments and updates, and the *Mark as Completed* button.
 
-## 7. How to Open the Dashboard
-
-**Published site (GitHub Pages) or any web server**
-
-Open the site. If `database.json` is in the same folder as `index.html`, the dashboard loads it and opens. No Connect step.
-
-**Opened from the computer (`index.html` double-click)**
-
-The browser blocks automatic reading of local files. Use **Google Chrome** or **Microsoft Edge**, click **Connect Database**, and select `database.json`.
-
-## 8. How to Connect database.json
-
-Use Connect only when the page was opened from the computer, or when you want edits saved straight into the file:
-
-1. Click **📂 Connect Database (database.json)**.
-2. Select `PMAI\database.json` and click **Open**.
-3. When the browser asks, click **Edit files / Allow** so the dashboard can save changes.
-4. If the file is empty, choose **Load the 3 demo projects** or **Start with an empty dashboard**. A file that already has data is never overwritten.
-
-Next time you open the dashboard it reconnects automatically. If the browser asks again, click **🔄 Reconnect database.json**.
-
-On the published site, the first save asks for a GitHub personal access token (Contents: Read and write, this repository only). The token stays in that browser. After that, every change is written to `database.json` in the repository. Pull the repository to refresh the copy in the PMAI folder on your computer.
-
-**Saving:**
-- Every add, edit, resolve and delete is saved to `database.json`. The header pill shows **✓ Saved to database.json**.
-- **💾 Save Changes** writes the file again (useful if a save failed).
-- **Export JSON** downloads a copy (backup). **Import JSON** replaces all data with another file (asks first).
-- Click the green pill for **Database options**: reload from file, alert thresholds, reset demo data.
-
-## 9. How to Add a Project
+## 7. How to Add a Project
 
 1. Click **Add Project** in the sidebar.
 2. Fill in all fields marked `*`: ID, name, manager, department, phase, status, description, budget, planned cost, actual cost, start date, end date, planned % and actual %.
 3. Click **Save Project**. Fields with errors turn red and show a message.
 4. After saving, the Project Details page opens. Add the project's risks in **Risks & Issues**.
 
-## 10. How to Update Progress
+## 8. How to Update Progress
 
 1. Open the project (**View**) and click **Edit**.
 2. Change **Actual Progress (%)** (and planned progress, actual cost, phase, remarks…).
@@ -138,7 +103,7 @@ On the published site, the first save asks for a GitHub personal access token (C
 
 Progress must be **between 0 and 100**. The form shows an error while typing and refuses to save values outside this range.
 
-## 11. How Cost and Schedule Are Calculated
+## 9. How Cost and Schedule Are Calculated
 
 | Value | Formula |
 |---|---|
@@ -157,7 +122,7 @@ Progress must be **between 0 and 100**. The form shows an error while typing and
 
 **Dashboard KPIs:** Total = all projects · Active = status *In Progress* or *At Risk* · Completed = status *Completed* · At-Risk = not completed and health is *At Risk* or *Critical* · Average Progress = average actual progress · Total Budget = sum of approved budgets.
 
-## 12. How Risk and Issue Monitoring Works
+## 10. How Risk and Issue Monitoring Works
 
 - A **risk** may happen in the future. Its **severity** = Probability × Impact (Low = 1, Medium = 2, High = 3): 6–9 → **High**, 3–4 → **Medium**, 1–2 → **Low**.
 - An **issue** has already happened. Its severity is Low, Medium, High or **Critical**.
@@ -170,7 +135,7 @@ Progress must be **between 0 and 100**. The form shows an error while typing and
 
 Health is separate from the **status** that the user selects (Planning, In Progress, On Hold, At Risk, Completed).
 
-## 13. How Alerts and Recommendations Work
+## 11. How Alerts and Recommendations Work
 
 `alerts.js` checks every project with these rules each time a page is shown:
 
@@ -188,7 +153,7 @@ Health is separate from the **status** that the user selects (Planning, In Progr
 
 Alerts appear on the **Dashboard** (all projects), the **Project Details** page and the **Report**. They are labelled *Automated Alerts & Recommendations* – they are fixed rules, not AI predictions.
 
-## 14. How Project Completion Validation Works
+## 12. How Project Completion Validation Works
 
 When a user tries to set a project to **Completed** – with the *Mark as Completed* button **or** by choosing *Completed* in the Edit / Add form – the dashboard checks:
 
@@ -205,18 +170,7 @@ If any check fails:
 
 The progress value is **never** set to 100% automatically. Only when every check passes is the project saved as *Completed* (phase set to *Closing*, completion date recorded). In the form, the result of the checks is shown as soon as *Completed* is selected.
 
-## 15. How Comments and Updates Work
-
-On every Project Details page, the **Comments & Updates** section lets you:
-
-- choose **Progress Update** or **Comment**, enter the **author name** and the text, and click **Add Entry**,
-- see the history **newest first** with date and time,
-- **Edit** or **Delete** any entry.
-
-Each entry is saved in `database.json → comments` as:
-`{ id, projectId, author, type, text, at, editedAt }`. The latest 5 entries are printed in the report.
-
-## 16. How to Generate Reports
+## 13. How to Generate Reports
 
 1. Click **Reports** in the sidebar (or *Report* on a project's details page).
 2. Choose the project in the dropdown.
@@ -224,7 +178,7 @@ Each entry is saved in `database.json → comments` as:
 
 The report contains project information, phase, progress, budget and schedule performance, the completion doughnut, risk summary, open issues, alerts and recommendations, latest updates and completion readiness.
 
-## 17. Example Demonstration Scenario (class presentation)
+## 14. Example Demonstration Scenario (class presentation)
 
 Use the demo data (Database options → **Reset demo data**, or load it into an empty file).
 
@@ -249,12 +203,3 @@ Use the demo data (Database options → **Reset demo data**, or load it into an 
 11. Dashboard – Completed Projects is now 1.
 12. **Reports** → PMO-003 → **Print / Save as PDF**.
 13. Reload the page – all changes are still there because they were saved in `database.json`.
-
-## 18. Known Technical Limitations
-
-- **Browser support:** saving directly to `database.json` needs the File System Access API (Chrome or Edge on desktop). In other browsers you can open a JSON file, but changes must be saved with **Export JSON** and the file replaced manually (the dashboard shows a warning).
-- **Permission:** browsers cannot open a file by path on their own. You select the file once; on later visits the browser may ask for permission again (one click on *Reconnect*).
-- **AJAX cannot write files.** AJAX is used only to read the selected file; writing uses the File System Access API.
-- **Single user:** this is a local prototype for one user. If two tabs or people change the same file, the dashboard detects it and refuses to overwrite, but there is no real multi-user support, login or security.
-- **Rule-based only:** alerts, health and forecasts use fixed formulas and thresholds. They are not AI predictions and do not guarantee project success; the completion check only confirms the recorded data.
-- **Older data:** a `database.json` created by an earlier version may contain extra keys (for example an old `users` list from a removed login feature). They are kept in the file but no longer used and can be deleted manually.

@@ -3,17 +3,12 @@
    ---------------------------------------------------------------------
    HOW SAVING WORKS
    * database.json is the only place where project data is stored.
-   * READING: if database.json is in the same folder as this page (GitHub
-     Pages, or any web server), it is loaded with jQuery AJAX and the
-     dashboard opens immediately. A file chosen with the file picker is
-     read the same way, through a temporary blob: URL.
-   * WRITING: on the published GitHub Pages site, each change is written
-     back to database.json in the repository (GitHub asks for a personal
-     access token the first time; it stays in this browser only).
-     When a local server accepts it, the same save is posted straight to
-     database.json. Direct saving also uses the File System Access API
-     when the user has connected a file: the change is written, read back
-     and compared to confirm it was saved.
+   * READING: if database.json is in the same folder as this page, it is
+     loaded with jQuery AJAX and the dashboard opens immediately.
+   * WRITING: the page posts each change to save.php in the same folder, which
+     overwrites database.json. If that is not available, Chrome or Edge can
+     write the database.json file you choose. The write is then read back
+     to confirm it was saved.
    * Writes run one after another (a queue) so two saves never overlap.
    * IndexedDB only remembers WHICH file was connected (the file handle) so
      the app can reconnect next time. No project data is stored there and
@@ -81,12 +76,12 @@ const DB = {
   async boot() {
     if (this.supported) {
       const h = await HandleStore.get();
-      if (h) this._stored = h;
+      if (h) {
+        this._stored = h;
+        try { if ((await h.queryPermission({ mode: "readwrite" })) === "granted") return this.attach(h); } catch (e) { }
+      }
     }
     if (await this.loadSameDirectory()) return;
-    if (this._stored) {
-      try { if ((await this._stored.queryPermission({ mode: "readwrite" })) === "granted") return this.attach(this._stored); } catch (e) { }
-    }
     this.showConnectScreen();
   },
 
@@ -242,17 +237,6 @@ const DB = {
 
   /* ---------------- Saving ---------------- */
 
-  /** True when this page is the published GitHub Pages site. */
-  onGithub() { return /\.github\.io$/i.test(location.hostname); },
-
-  /** Repository that GitHub Pages is serving. database.json lives at the repo root. */
-  githubTarget() {
-    const owner = location.hostname.replace(/\.github\.io$/i, "");
-    const seg = location.pathname.split("/").filter(Boolean);
-    const repo = seg.length ? seg[0] : owner + ".github.io";
-    return { owner, repo, path: "database.json" };
-  },
-
   ajax(options) {
     return new Promise((resolve, reject) => {
       $.ajax(options).done(resolve).fail(xhr => {
@@ -262,13 +246,6 @@ const DB = {
         reject(e);
       });
     });
-  },
-
-  toBase64(str) {
-    const bytes = new TextEncoder().encode(str);
-    let bin = "";
-    for (let i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
-    return btoa(bin);
   },
 
   /**
@@ -288,9 +265,10 @@ const DB = {
       if ($("#app").is(":visible")) App.renderDbStatus();
       return Promise.resolve(true);
     }
+    const prep = this.canWriteDirect() ? Promise.resolve() : this.beginWrite();
     this.pending++; this.status.state = "saving";
     if ($("#app").is(":visible")) App.renderDbStatus();
-    const job = this.queue.then(() => this.write(false));   // wait for the previous write first
+    const job = this.queue.then(() => prep).then(() => this.write(false));
     this.queue = job.catch(() => { });
     return job.then(() => true, e => { this.fail(e); return false; }).finally(() => {
       this.pending--;
@@ -299,96 +277,76 @@ const DB = {
     });
   },
 
-  /** Write database.json through the file handle, a local server, or GitHub. */
+  canWriteDirect() {
+    return (this.mode === "fs" && this.handle) || this.mode === "hosted" || this.mode === "server";
+  },
+
+  /** Choose database.json with the browser file picker, or reuse the file already allowed. */
+  beginWrite() {
+    if (this.mode === "fs" && this.handle) return Promise.resolve();
+    if (!this._prep) this._prep = this.prepareWritable().finally(() => { this._prep = null; });
+    return this._prep;
+  },
+  async prepareWritable() {
+    if (this.mode === "fs" && this.handle) return;
+    if (!this.supported) throw new Error("This browser cannot write files. Open the dashboard in Chrome or Edge, or use Export JSON and replace database.json.");
+    if (this._stored) {
+      try {
+        const q = await this._stored.queryPermission({ mode: "readwrite" });
+        const ok = q === "granted" || (q === "prompt" && await this._stored.requestPermission({ mode: "readwrite" }) === "granted");
+        if (ok) return this.useHandle(this._stored);
+      } catch (e) { }
+    }
+    let h;
+    try { [h] = await window.showOpenFilePicker({ types: this.pickerTypes, multiple: false }); }
+    catch (e) {
+      if (e.name === "AbortError") throw new Error("Choose database.json so the change can be written into the file");
+      if (e.name === "NotAllowedError") throw new Error("Click Save Changes, then choose database.json");
+      throw e;
+    }
+    if ((await h.requestPermission({ mode: "readwrite" })) !== "granted" && (await h.queryPermission({ mode: "readwrite" })) !== "granted")
+      throw new Error("Permission to edit " + h.name + " was not given");
+    await HandleStore.set(h);
+    return this.useHandle(h);
+  },
+
+  async useHandle(h) {
+    const file = await h.getFile();
+    this.handle = h; this.mode = "fs"; this.fileName = h.name; this._stored = h;
+    this.diskModified = file.lastModified;
+    try { this.diskRevision = JSON.parse(await file.text()).meta.revision || 0; } catch (e) { this.diskRevision = 0; }
+  },
+
+  /** Write database.json. The same-folder saver is tried before the file picker. */
   async write(force) {
     const text = JSON.stringify(this.data, null, 2), rev = this.data.meta.revision;
     if (this.mode === "fs" && this.handle) return this.writeHandle(force, text, rev);
-    if (!this.onGithub() && await this.writeSameOrigin(text)) return this.markSaved("server", rev);
-    if (this.onGithub()) {
-      await this.writeGithub(text);
-      return this.markSaved("github", rev);
+    if ((this.mode === "hosted" || this.mode === "server") && await this.writeSameOrigin(text)) return this.markSaved("server", rev);
+    if (!(this.mode === "fs" && this.handle)) await this.prepareWritable();
+    if (!(this.mode === "fs" && this.handle)) throw new Error("database.json could not be updated");
+    return this.writeHandle(force, text, rev);
+  },
+
+  async writeSameOrigin(text) {
+    try {
+      const res = await this.ajax({
+        url: "save.php", method: "POST", data: text, processData: false,
+        contentType: "application/json; charset=utf-8", dataType: "json", timeout: 20000
+      });
+      if (res && res.ok) return true;
+      const err = new Error((res && res.message) || "database.json was not saved");
+      err.fatal = true;
+      throw err;
+    } catch (e) {
+      if (e.fatal || (e.status && e.status !== 404 && e.status !== 405)) throw e;
+      return false;
     }
-    throw new Error("database.json could not be updated from this page");
   },
 
   markSaved(mode, rev) {
     this.mode = mode;
     this.diskRevision = rev;
     Object.assign(this.status, { error: null, conflict: false, dirty: false, lastSaved: U.now() });
-  },
-
-  /** Local server that accepts POST database.json (see a server started for this folder). */
-  async writeSameOrigin(text) {
-    try {
-      const res = await this.ajax({
-        url: "database.json", method: "POST", data: text, processData: false,
-        contentType: "application/json; charset=utf-8", dataType: "json", timeout: 20000
-      });
-      return !!(res && res.ok);
-    } catch (e) { return false; }
-  },
-
-  /** Update database.json in the GitHub repository that GitHub Pages publishes. */
-  async writeGithub(text) {
-    const info = this.githubTarget();
-    let token = localStorage.getItem("pmai-gh-token") || "";
-    for (let attempt = 0; attempt < 2; attempt++) {
-      if (!token) token = await this.askGithubToken(info);
-      if (!token) throw new Error("database.json was not updated because saving was cancelled");
-      try {
-        await this.putGithub(info, token, text);
-        localStorage.setItem("pmai-gh-token", token);
-        return;
-      } catch (e) {
-        if (e.status === 401 && attempt === 0) { localStorage.removeItem("pmai-gh-token"); token = ""; continue; }
-        throw e;
-      }
-    }
-  },
-
-  async putGithub(info, token, text) {
-    const base = "https://api.github.com/repos/" + encodeURIComponent(info.owner) + "/" + encodeURIComponent(info.repo) + "/contents/" + info.path;
-    const headers = { Authorization: "Bearer " + token, Accept: "application/vnd.github+json", "X-GitHub-Api-Version": "2022-11-28" };
-    let last;
-    for (let i = 0; i < 2; i++) {
-      const current = await this.ajax({ url: base, method: "GET", headers, dataType: "json", timeout: 20000 });
-      try {
-        await this.ajax({
-          url: base, method: "PUT", headers,
-          data: JSON.stringify({ message: "Update project data in database.json", content: this.toBase64(text), sha: current.sha }),
-          processData: false, contentType: "application/json", dataType: "json", timeout: 30000
-        });
-        return;
-      } catch (e) {
-        last = e;
-        if (e.status !== 409 || i === 1) throw e;   // 409: the file changed, read the new sha and try once more
-      }
-    }
-    throw last;
-  },
-
-  /** First save on GitHub Pages: the token is stored in this browser, never in database.json. */
-  askGithubToken(info) {
-    return new Promise(resolve => {
-      let done = false;
-      const finish = token => { if (done) return; done = true; resolve(token || ""); };
-      App.modal({
-        title: "Save changes to database.json",
-        onClose: () => finish(""),
-        body: `<p>Changes are written to <b>database.json</b> in the GitHub repository <b>${esc(info.owner + "/" + info.repo)}</b>.</p>
-          <p>GitHub requires a personal access token the first time. Create one with <b>Contents: Read and write</b> for this repository only, then paste it here. It stays in this browser and is not saved in the project file.</p>
-          <p><a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">Create a token on GitHub</a></p>
-          <form class="form" onsubmit="return false"><div class="full"><label>GitHub token</label><input id="ghToken" type="password" autocomplete="off"></div></form>`,
-        buttons: [
-          { label: "Save to database.json", onClick: () => {
-            const t = $("#ghToken").val().trim();
-            if (!t) { toast("Paste the token first", true); return false; }
-            finish(t);
-          } },
-          { label: "Cancel", cls: "sec", onClick: () => finish("") }
-        ]
-      });
-    });
   },
 
   /** Write the connected file, then read it back to confirm the content really changed. */
@@ -429,8 +387,9 @@ const DB = {
   saveNow() {
     if (this.mode === "memory") return this.exportJSON();
     if (this.status.conflict) return this.showTools();
+    const prep = this.canWriteDirect() ? Promise.resolve() : this.beginWrite();
     this.pending++; this.status.state = "saving"; App.renderDbStatus();
-    const job = this.queue.then(() => this.write(true));
+    const job = this.queue.then(() => prep).then(() => this.write(true));
     this.queue = job.catch(() => { });
     return job.then(() => { this.status.state = "saved"; toast("All changes saved to " + this.fileName); }, e => this.fail(e))
       .finally(() => { this.pending--; App.renderDbStatus(); });
@@ -453,11 +412,10 @@ const DB = {
           <div><label>Schedule critical (% behind plan)</label><input type="number" name="scheduleCritical" min="1" max="100" value="${st.scheduleCritical}"></div>
           <div><label>Budget warning (% of budget used)</label><input type="number" name="budgetWarning" min="1" max="100" value="${st.budgetWarning}"></div>
         </form>
-        <div class="note mt small">On the published site, each change is written to <b>database.json</b> in the GitHub repository. The first save asks for a GitHub token and keeps it in this browser only.</div>`,
+        <div class="note mt small">Changes are saved into <b>database.json</b>.</div>`,
       buttons: [
         { label: "Save thresholds", onClick: () => this.saveSettings() },
-        ...(this.mode !== "memory" ? [{ label: "Reload from file", cls: "sec", onClick: () => { this.reload(); } }] : []),
-        ...(this.onGithub() ? [{ label: "Forget GitHub token", cls: "sec", onClick: () => { localStorage.removeItem("pmai-gh-token"); toast("GitHub token removed from this browser"); } }] : []),
+        ...(this.mode === "fs" ? [{ label: "Reload from file", cls: "sec", onClick: () => { this.reload(); } }] : []),
         ...(s.conflict ? [{ label: "Overwrite file", cls: "del", onClick: () => { if (confirm("Replace the file content with the data shown in this tab?")) { this.status.conflict = false; this.saveNow(); } } }] : []),
         { label: "Reset demo data", cls: "del", onClick: () => { this.resetDemo(); } },
         { label: "Close", cls: "sec" }
